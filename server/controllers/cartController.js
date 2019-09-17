@@ -9,12 +9,12 @@ module.exports = {
         const index = user.cart.findIndex(swag => swag.id == id);
 
         if (index === -1) {
-            const product = swag.find(swag => swag.id === id)
+            const product = swag.find(swag => swag.id == id)
             user.cart.push(product);
-            user.total += selectedSwag.price; 
+            user.total += product.price; 
         }
 
-        res.status(200).send(session.user)
+        res.status(200).send(user)
     },
     delete: (req, res) => {
         const { id } = req.params;
@@ -28,7 +28,7 @@ module.exports = {
             //Remove the product from the cart
             user.cart.splice(index, 1);
             //Deduct the price from the total
-            user.total -= selectedSwag.price;
+            user.total -= productDelete.price;
         }
 
         // Return the session user with the updated cart.

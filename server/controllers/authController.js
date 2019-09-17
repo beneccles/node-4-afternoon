@@ -9,7 +9,7 @@ module.exports = {
         // Check to see if the user already exists within our users.js file
         // Compare the entered user and password against whats already in the system.
         // If the comparsion fails, user will be empty, causing to be defined as falsy.
-        const user = user.find(user => user.username === username && user.password === password)
+        const user = users.find(user => user.username === username && user.password === password);
 
         // If user is truthy, assign the user to the session. Otherwise, let the user know they are unauthorized.
         if (user) {
