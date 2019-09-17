@@ -42,6 +42,7 @@ module.exports = {
     getUser: (req, res) => {
         // Return the current session user.
         const { session } = req;
+        console.log(session);
         res.status(200).send(session.user)
     }
 }

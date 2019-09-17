@@ -5,13 +5,18 @@ module.exports = {
         const { id } = req.params;
         let { user } = req.session;
 
+        // if (swag.findIndex(product => product.id == id))
         // Check the user's cart for the ID
         const index = user.cart.findIndex(swag => swag.id == id);
 
         if (index === -1) {
             const product = swag.find(swag => swag.id == id)
+            console.log(product)
             user.cart.push(product);
             user.total += product.price; 
+        }
+        else {
+            console.log('Product not found')
         }
 
         res.status(200).send(user)

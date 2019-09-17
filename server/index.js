@@ -12,12 +12,16 @@ const cart = require('./controllers/cartController')
 const search = require('./controllers/searchController')
 const { SERVER_PORT, SESSION_SECRET } = process.env
 
+app.use(express.static(__dirname + '/../build'))
 // Middleware
 app.use(express.json())
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 10
+    }
 }))
 
 // Check the session, see if the user matches a previous one or 
@@ -25,18 +29,18 @@ app.use(session({
 app.use(checkForSession)
 
 //GET
-app.get('/api/swag', swag.read);
+app.get('/api/swag', swag.read); // Functional
 
 //Authorize Endpoints
-app.post('/api/login', auth.login)
-app.post('/api/register', auth.register)
-app.post('/api/signout', auth.signout)
-app.get('/api/user', auth.getUser)
+app.post('/api/login', auth.login) // Functional
+app.post('/api/register', auth.register) // Functional
+app.post('/api/signout', auth.signout) // Functional
+app.get('/api/user', auth.getUser) // Functional
 
 //Cart Endpoints
 app.post('/api/cart/checkout', cart.checkout)
-app.post('/api/cart/:id', cart.add)
-app.delete('/api/cart/:id', cart.delete)
+app.post('/api/cart/:id', cart.add) // Functional
+app.delete('/api/cart/:id', cart.delete) // 
 
 //Search Endpoint
 app.get('/api/search', search.search)
